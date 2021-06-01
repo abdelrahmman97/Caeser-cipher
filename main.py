@@ -1,7 +1,7 @@
 import sys
 import ntpath
 import threading
-from PyQt5 import QtCore
+# from PyQt5 import QtCore
 
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QMessageBox, QFileDialog
