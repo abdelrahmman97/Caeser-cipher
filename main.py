@@ -4,17 +4,19 @@ import threading
 # from PyQt5 import QtCore
 
 from PyQt5.QtWidgets import (
-    QApplication, QMainWindow, QMessageBox, QFileDialog
+    QApplication, QMainWindow, QFileDialog  #  ,QMessageBox
 )
 # from PyQt5.uic import loadUi
 
 from UI.main_window import Ui_MainWindow
+from UI.about import Ui_AboutMainWindow
 
 class Window(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         self.shift = 5
         self.file = ""
         self.newFile = ""
+        self.dialogs = list()
         super().__init__(parent)
         self.setupUi(self)
         self.connectSignalsSlots()
@@ -27,17 +29,22 @@ class Window(QMainWindow, Ui_MainWindow):
         self.btn_decrypt.clicked.connect(self.decrypt)
 
     def about(self):
-        QMessageBox.about(
-            self,
-            "Ceaser Cipher",
-            "<p>A sample app built with:</p>"
-            "<p>- PyQt</p>"
-            "<p>- Qt Designer</p>"
-            "<p>- Python</p>"
-            "<p>Created by:</p>"
-            "<p>- Soliman Ali Soliman</p>"
-            "<p>- Abdelrahman Mahmoud Mohamed</p>"
-        )
+        self.statusbar.showMessage('Open About Form')
+        self.window = QMainWindow()
+        self.ui = Ui_AboutMainWindow()
+        self.ui.setupUi(self.window)
+        self.window.show()
+        # QMessageBox.about(
+        #     self,
+        #     "Ceaser Cipher",
+        #     "<p>A sample app built with:</p>"
+        #     "<p>- PyQt</p>"
+        #     "<p>- Qt Designer</p>"
+        #     "<p>- Python</p>"
+        #     "<p>Created by:</p>"
+        #     "<p>- Soliman Ali Soliman</p>"
+        #     "<p>- Abdelrahman Mahmoud Mohamed</p>"
+        # )
 
     def openFileNameDialog(self):
         self.statusbar.showMessage('Open file dialog opened')
@@ -69,53 +76,66 @@ class Window(QMainWindow, Ui_MainWindow):
         self.btn_decrypt.setEnabled(False)
 
     def encrypt(self):
-        self.statusbar.showMessage('Start encryption')
+        self.log.append('Start encryption')
         encryption = []
-        x=""
+        x = ""
         file = self.file
         with open(file) as f:
-            self.statusbar.showMessage('Start read file')
             lines = [line.rstrip() for line in f]
             print(lines)
+            asd = ""
+            for item in lines:
+                asd += f" {item}"
+            self.log.append(f'text: {asd}')
         for text in lines:
             #text.upper()
-            x=""
+            x = ""
             for c in text:
                 # check if character is an uppercase letter
                 if c.isupper():
                     # find the position in 0-25
-                    c_unicode = ord(c)
-                    c_index = ord(c) - ord("A")
+                    c_index = ord(c) - ord('A')
                     # perform the shift
-                    new_index = (c_index + self.shift) % 26
+                    new_index = (c_index + self.shift) % 26 + ord('A')
                     # convert to new character
-                    new_unicode = new_index + ord("A")
-                    new_character = chr(new_unicode)
+                    new_character = chr(new_index)
                     # append to encrypted string
-                    x = x + new_character
+                    x += new_character
+                elif c.islower():
+                    c_index = ord(c) - ord('a')
+                    # perform the shift
+                    new_index = (c_index + self.shift) % 26 + ord('a')
+                    # convert to new character
+                    new_character = chr(new_index)
+                    # append to encrypted string
+                    x += new_character
+                elif c.isdigit():
+                    # if it's a number,shift its actual value
+                    new_index = (int(c) + self.shift) % 10
+                    x += str(new_index)
                 else:
-                    c_unicode = ord(c)
-                    c_index = ord(c) - ord("a")
-                    # perform the shift
-                    new_index = (c_index + self.shift) % 26
-                    # convert to new character
-                    new_unicode = new_index + ord("A")
-                    new_character = chr(new_unicode)
-                    # append to encrypted string
-                    x = x + new_character
+                    # if its neither alphabetical nor a number, just leave it like that
+                    x += c
             encryption.append(x)
+        self.log.append('Encryption completed!')
+        asd = ""
+        for item in encryption:
+            asd += f" {item}"
+        self.log.append(f'Encrypted text: {asd}')
         print(encryption)
         self.file_save(encryption)
-        self.statusbar.showMessage('Encryption completed!')
         # return encryption
 
     def decrypt(self):
-        self.statusbar.showMessage('Start decryption')
+        self.log.append('Start decryption')
         decrypttion = []
         file = self.file
         with open(file) as f:
-            self.statusbar.showMessage('Start read file')
             lines = [line.rstrip() for line in f]
+            asd = ""
+            for item in lines:
+                asd += f" {item}"
+            self.log.append(f'Cipher text: {asd}')
         for text in lines:
             #text.upper()
             x=""
@@ -123,30 +143,37 @@ class Window(QMainWindow, Ui_MainWindow):
                 # check if character is an uppercase letter
                 if c.isupper():
                     # find the position in 0-25
-                    c_unicode = ord(c)
-                    c_index = ord(c) - ord("A")
+                    c_index = ord(c) - ord('A')
                     # perform the shift
-                    new_index = (c_index - self.shift) % 26
+                    new_index = (c_index - self.shift) % 26 + ord('A')
                     # convert to new character
-                    new_unicode = new_index + ord("A")
-                    new_character = chr(new_unicode)
+                    new_character = chr(new_index)
                     # append to encrypted string
-                    x = x + new_character
+                    x += new_character
+                elif c.islower():
+                    c_index = ord(c) - ord('a')
+                    # perform the shift
+                    new_index = (c_index - self.shift) % 26 + ord('a')
+                    # convert to new character
+                    new_character = chr(new_index)
+                    # append to encrypted string
+                    # Decrypted  = Decrypted + list(new_character)
+                    x += new_character
+                elif c.isdigit():
+                    # if it's a number,shift its actual value
+                    new_index = (int(c) + self.shift) % 10
+                    x += str(new_index)
                 else:
-                    c_unicode = ord(c)
-                    c_index = ord(c) - ord("a")
-                    # perform the shift
-                    new_index = (c_index - self.shift) % 26
-                    # convert to new character
-                    new_unicode = new_index + ord("A")
-                    new_character = chr(new_unicode)
-                    # append to encrypted string
-                    Decrypted  = Decrypted +list(new_character)
-                    x = x + new_character
+                    # if its neither alphabetical nor a number, just leave it like that
+                    x += c
             decrypttion.append(x)
+        self.log.append('Decryption completed!')
+        asd = ""
+        for item in decrypttion:
+            asd += f" {item}"
+        self.log.append(f'Text: {asd}')
         print(decrypttion)
         self.file_save(decrypttion)
-        self.statusbar.showMessage('Decryption completed!')
         # return decrypttion
 
 # ?=======================================================================================================================================

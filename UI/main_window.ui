@@ -7,53 +7,86 @@
     <x>0</x>
     <y>0</y>
     <width>495</width>
-    <height>200</height>
+    <height>250</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>495</width>
-    <height>200</height>
+    <height>250</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>495</width>
-    <height>200</height>
+    <height>250</height>
    </size>
   </property>
   <property name="windowTitle">
    <string>Caeser cipher</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_3">
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <property name="spacing">
-       <number>50</number>
-      </property>
-      <property name="leftMargin">
-       <number>20</number>
-      </property>
-      <property name="topMargin">
-       <number>0</number>
-      </property>
-      <property name="rightMargin">
-       <number>20</number>
-      </property>
-      <item>
-       <widget class="QPushButton" name="btn_encrypt">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QPushButton{
+   <widget class="QTextEdit" name="log">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>90</y>
+      <width>491</width>
+      <height>120</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOn</enum>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>1</x>
+      <y>1</y>
+      <width>491</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>20</number>
+     </property>
+     <property name="leftMargin">
+      <number>20</number>
+     </property>
+     <property name="topMargin">
+      <number>20</number>
+     </property>
+     <property name="rightMargin">
+      <number>20</number>
+     </property>
+     <property name="bottomMargin">
+      <number>20</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="btn_encrypt">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
 	font: 75 16pt &quot;MS Shell Dlg 2&quot;;
 	height: 35px;
-	color: rgb(90, 185, 234);
+	color: rgb(255, 255, 255);
+	background-color: rgb(78, 78, 117);
+	border-radius:15px;
 }
 QPushButton:pressed {
-    background-color: #e0e0e0;
+    background-color: rgb(78 78 117 / 75%);
     border-style: inset;
 }
 QPushButton:disabled {
@@ -61,25 +94,28 @@ QPushButton:disabled {
 	color: rgb(173, 173, 173);
     border-style: inset;
 }</string>
-        </property>
-        <property name="text">
-         <string>Encrypt</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btn_decrypt">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QPushButton{
+       </property>
+       <property name="text">
+        <string>Encrypt</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_decrypt">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
 	font: 75 16pt &quot;MS Shell Dlg 2&quot;;
 	height: 35px;
 	color: rgb(90, 185, 234);
+	color: rgb(255, 255, 255);
+	background-color: rgb(78, 78, 117);
+	border-radius:15px;
 }
 QPushButton:pressed {
-    background-color: #e0e0e0;
+     background-color: rgb(78 78 117 / 75%);
     border-style: inset;
 }
 QPushButton:disabled {
@@ -87,15 +123,14 @@ QPushButton:disabled {
 	color: rgb(173, 173, 173);
     border-style: inset;
 }</string>
-        </property>
-        <property name="text">
-         <string>Decrypt</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-   </layout>
+       </property>
+       <property name="text">
+        <string>Decrypt</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

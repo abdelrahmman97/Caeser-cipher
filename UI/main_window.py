@@ -14,26 +14,37 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(495, 200)
-        MainWindow.setMinimumSize(QtCore.QSize(495, 200))
-        MainWindow.setMaximumSize(QtCore.QSize(495, 200))
+        MainWindow.resize(495, 250)
+        MainWindow.setMinimumSize(QtCore.QSize(495, 250))
+        MainWindow.setMaximumSize(QtCore.QSize(495, 250))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.centralwidget)
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.horizontalLayout = QtWidgets.QHBoxLayout()
-        self.horizontalLayout.setContentsMargins(20, 0, 20, -1)
-        self.horizontalLayout.setSpacing(50)
+        self.log = QtWidgets.QTextEdit(self.centralwidget)
+        self.log.setGeometry(QtCore.QRect(0, 90, 491, 120))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.log.setFont(font)
+        self.log.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+        self.log.setReadOnly(True)
+        self.log.setObjectName("log")
+        self.widget = QtWidgets.QWidget(self.centralwidget)
+        self.widget.setGeometry(QtCore.QRect(1, 1, 491, 91))
+        self.widget.setObjectName("widget")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.widget)
+        self.horizontalLayout.setContentsMargins(20, 20, 20, 20)
+        self.horizontalLayout.setSpacing(20)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.btn_encrypt = QtWidgets.QPushButton(self.centralwidget)
+        self.btn_encrypt = QtWidgets.QPushButton(self.widget)
         self.btn_encrypt.setEnabled(False)
         self.btn_encrypt.setStyleSheet("QPushButton{\n"
 "    font: 75 16pt \"MS Shell Dlg 2\";\n"
 "    height: 35px;\n"
-"    color: rgb(90, 185, 234);\n"
+"    color: rgb(255, 255, 255);\n"
+"    background-color: rgb(78, 78, 117);\n"
+"    border-radius:15px;\n"
 "}\n"
 "QPushButton:pressed {\n"
-"    background-color: #e0e0e0;\n"
+"    background-color: rgb(78 78 117 / 75%);\n"
 "    border-style: inset;\n"
 "}\n"
 "QPushButton:disabled {\n"
@@ -43,15 +54,18 @@ class Ui_MainWindow(object):
 "}")
         self.btn_encrypt.setObjectName("btn_encrypt")
         self.horizontalLayout.addWidget(self.btn_encrypt)
-        self.btn_decrypt = QtWidgets.QPushButton(self.centralwidget)
+        self.btn_decrypt = QtWidgets.QPushButton(self.widget)
         self.btn_decrypt.setEnabled(False)
         self.btn_decrypt.setStyleSheet("QPushButton{\n"
 "    font: 75 16pt \"MS Shell Dlg 2\";\n"
 "    height: 35px;\n"
 "    color: rgb(90, 185, 234);\n"
+"    color: rgb(255, 255, 255);\n"
+"    background-color: rgb(78, 78, 117);\n"
+"    border-radius:15px;\n"
 "}\n"
 "QPushButton:pressed {\n"
-"    background-color: #e0e0e0;\n"
+"     background-color: rgb(78 78 117 / 75%);\n"
 "    border-style: inset;\n"
 "}\n"
 "QPushButton:disabled {\n"
@@ -61,7 +75,6 @@ class Ui_MainWindow(object):
 "}")
         self.btn_decrypt.setObjectName("btn_decrypt")
         self.horizontalLayout.addWidget(self.btn_decrypt)
-        self.verticalLayout_3.addLayout(self.horizontalLayout)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 495, 21))
